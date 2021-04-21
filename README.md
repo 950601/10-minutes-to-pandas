@@ -201,11 +201,95 @@ pd.isna(df1)
 
 ### 数据操作
 
-- **数据统计**
+- **数据计算**
 
 > 获取最小值，0代表列，1代表行
 ```
 df.mean()
 df.mean(1)
+```
+
+> 加减乘除
+```
+df.add(1)
+df.div(1)
+df.sub(1)
+df.mul(1)
+```
+
+
+- **函数计算**
+
+> 获取累加值，0代表列，1代表行，累加定义：https://www.jianshu.com/p/23e7e9251abb
+```
+df.apply(np.cumsum，0)
+```
+
+> 获取每列的最大值-最小值的结果
+```
+df.apply(lambda x: x.max() - x.min())
+```
+
+
+- **特殊计算**
+
+> 获取出现次数
+```
+s = pd.Series(np.random.randint(0, 7, size=10))
+s.value_counts()
+```
+
+> 字符排序
+```
+s = pd.Series(["A", "B", "C", "Aaba", "Baca", np.nan, "CABA", "dog", "cat"])
+s.str.lower()
+```
+
+### 数据合并
+
+- **连接数据**
+
+> 连接DataFrame片段，注意：DataFrame增加行速度快，但是增加Row需要复制数组，效率低
+> 官方建议：https://pandas.pydata.org/docs/user_guide/merging.html#merging-concatenation
+```
+df = pd.DataFrame(np.random.randn(10, 4))
+pieces = [df[:3], df[3:7], df[7:]]
+pd.concat(pieces)
+```
+
+> 根据key合并DataFrame，k-v不重复的情况
+```
+left = pd.DataFrame({"key": ["foo", "foo"], "lval": [1, 2]})
+right = pd.DataFrame({"key": ["foo", "foo"], "rval": [4, 5]})
+pd.merge(left, right, on="key")
+```
+
+> 根据key合并DataFrame，k-v重复的情况
+```
+left = pd.DataFrame({"key": ["foo", "bar"], "lval": [1, 2]})
+right = pd.DataFrame({"key": ["foo", "bar"], "rval": [4, 5]})
+pd.merge(left, right, on="key")
+```
+
+
+
+### 分组
+
+- **分组汇总**
+
+> 根据相应列进行分组汇总
+
+```
+df = pd.DataFrame(
+        {
+            "A": ["foo", "bar", "foo", "bar", "foo", "bar", "foo", "foo"],
+            "B": ["one", "one", "two", "three", "two", "two", "one", "three"],
+            "C": np.random.randn(8),
+            "D": np.random.randn(8),
+        }
+    )
+
+df.groupby("A").sum() 
+df.groupby(["A", "B"]).sum()
 ```
 

@@ -136,3 +136,76 @@ df.loc[:, ["A", "B"]]
 df.loc["20130102":"20130104", ["A", "B"]]
 ```
 
+- **根据条件获取数据**
+> 获取A列大于0的数据
+```
+df[df["A"] > 0]
+```
+
+> 获取DateFrame大于0的数据，小于0返回none
+```
+df[df > 0]
+```
+
+> 根据是否存在指定value获取数据
+```
+df2[df2["A"].isin(["0.469112", "1.212112"])]
+```
+
+
+- **设置获取数据**
+> 在已有数据上加一列，根据index匹配行
+```
+s1 = pd.Series([1, 2, 3, 4, 5, 6], index=pd.date_range("20130102", periods=6))
+df["F"] = s1
+```
+
+> 在指定位置设置value
+```
+df.at[dates[0], "A"] = 0
+df.iat[0, 1] = 0
+df.loc[:, "D"] = np.array([5] * len(df))
+```
+
+> 根据条件设置value
+```
+df2 = df.copy()
+df2[df2 > 0] = -df2
+```
+
+
+### 数据过滤
+
+- **增删改查**
+
+> 重构DateFrame副本，reindex返回一个新的copy
+```
+df1 = df.reindex(index=dates[0:4], columns=list(df.columns) + ["E"])
+df1.loc[dates[0] : dates[1], "E"] = 1
+```
+
+> 删除空行
+```
+df1.dropna(how="any")
+```
+
+> 填充空行
+```
+df1.fillna(value=5)
+```
+
+> 查看空行。由于副本不具备方法，所以使用原始DareFrame对象
+```
+pd.isna(df1)
+```
+
+### 数据操作
+
+- **数据统计**
+
+> 获取最小值，0代表列，1代表行
+```
+df.mean()
+df.mean(1)
+```
+

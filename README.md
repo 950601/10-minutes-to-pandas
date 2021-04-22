@@ -389,19 +389,6 @@ df.to_excel("foo.xlsx", sheet_name="Sheet1")
 
 
 
-### 数据可视化
-
-- **导入plot包**
-
-```
-import matplotlib.pyplot as plt
-plt.close("all")
-```
-
-
-
-
-
 参考网址：
 https://pandas.pydata.org/docs/user_guide/10min.html#getting-data-in-out
 https://pandas.pydata.org/pandas-docs/stable/user_guide/visualization.html

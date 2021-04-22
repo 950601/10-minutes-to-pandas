@@ -1,4 +1,4 @@
-# 10-minutes-to-pandas
+# begin study pandas
 
 ## 首先引入包
 

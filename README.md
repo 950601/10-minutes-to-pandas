@@ -293,3 +293,115 @@ df.groupby("A").sum()
 df.groupby(["A", "B"]).sum()
 ```
 
+### 时间操作
+
+- **时间取样**
+
+> 按分秒取样
+
+```
+idx = pd.date_range('1/1/2000', periods=4, freq='T')
+df = pd.DataFrame(data=4 * [range(2)],
+                  index=idx,
+                  columns=['a', 'b'])
+df.iloc[2, 0] = 5
+df.resample('3T').sum()
+df.resample('30S').sum()
+```
+
+> 分组取样
+
+```
+df.groupby('a').resample('30S').sum()
+```
+
+
+> 时区操作
+
+```
+rng = pd.date_range("3/6/2012 00:00", periods=5, freq="D")
+ts = pd.Series(np.random.randn(len(rng)), rng)
+ts_utc = ts.tz_localize("UTC")
+ts_utc.tz_convert("US/Eastern")
+```
+
+> 时间格式转换
+
+```
+rng = pd.date_range("1/1/2012", periods=5, freq="M")
+ts = pd.Series(np.random.randn(len(rng)), index=rng)
+ps = ts.to_period()
+ps.to_timestamp()
+```
+
+> 使用函数转换时间格式
+
+```
+prng = pd.period_range("1990Q1", "2000Q4", freq="Q-NOV")
+ts = pd.Series(np.random.randn(len(prng)), prng)
+ts.index = (prng.asfreq("M", "e") + 1).asfreq("H", "s") + 9
+ts.head()
+```
+
+
+### 字典类型
+
+- **字典操作**
+
+> DateFrame字段转Category类型
+
+```
+df = pd.DataFrame(
+      {"id": [1, 2, 3, 4, 5, 6], "raw_grade": ["a", "b", "b", "a", "a", "e"]}
+)
+df["grade"] = df["raw_grade"].astype("category")
+df["grade"]
+
+```
+
+> Category重命名
+
+```
+df["grade"].cat.categories = ["very good", "good", "very bad"]
+```
+
+> 按照类型排序，类型顺序是category定义的类型，不是字符自然排序
+
+```
+df.sort_values(by="grade")
+```
+> 类型分组统计
+
+```
+df.groupby("grade").size()
+```
+
+
+
+### Excel操作
+
+- **导入导出**
+
+```
+pd.read_excel("foo.xlsx", "Sheet1", index_col=None, na_values=["NA"])
+df.to_excel("foo.xlsx", sheet_name="Sheet1")
+```
+
+
+
+### 数据可视化
+
+- **导入plot包**
+
+```
+import matplotlib.pyplot as plt
+plt.close("all")
+```
+
+
+
+
+
+参考网址：
+https://pandas.pydata.org/docs/user_guide/10min.html#getting-data-in-out
+https://pandas.pydata.org/pandas-docs/stable/user_guide/visualization.html

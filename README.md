@@ -42,7 +42,7 @@ df2 = pd.DataFrame(
 df.head()
 df.tail(3)  # default value is 5
 ```
-
+ 
 - **查看列头，行头**
 
 ```

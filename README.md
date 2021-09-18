@@ -72,7 +72,7 @@ df.T
 - **排序**
 > axis = 1 代表以列排序，0 代表以行排序
 > by = clounm 指定具体排序列
-```
+``` 
 df.sort_index(axis=1, ascending=False)
 df.sort_values(by="B")
 ```

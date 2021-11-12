@@ -74,7 +74,7 @@ df.T
 > by = clounm 指定具体排序列
 ``` 
 df.sort_index(axis=1, ascending=False)
-df.sort_values(by="B")
+df.sort_values(by="B") 
 ```
 
 

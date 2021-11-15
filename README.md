@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd 
 ```
 
-### 创建数据对象 
+### 创建数据对象  
 > 数据对象一般包括Series,DateFrame，详细介绍：https://pandas.pydata.org/docs/user_guide/dsintro.html#dataframe
 
 - **创建一个series对象，使用pandas默认索引**
